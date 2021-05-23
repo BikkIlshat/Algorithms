@@ -9,6 +9,7 @@ public class HomeWork {
 
     public static void main(String[] args) {
 
+
         System.out.println("Задание 4.1: простой стек и его базовые методы:");
 
         long startOne = System.nanoTime();
@@ -41,7 +42,7 @@ public class HomeWork {
         System.out.println("\n" + "Задание 4.2: простая очередь и его базовые методы:");
 
         long startTwo = System.nanoTime();
-        Queue<String> queue = new ArrayDeque<>();
+        Queue<String> queue = new LinkedList<>();
 
         queue.add("A");
         queue.add("Б");
@@ -132,6 +133,7 @@ public class HomeWork {
 
         System.out.println("\n" + "Задание 4.5:  стек и очередь на базе связанного списка.:");
 
+        long startFive = System.nanoTime();
         LinkedListStack<Integer> stackMy = new LinkedListStack<>();
 
 
@@ -153,11 +155,36 @@ public class HomeWork {
         System.out.println("Initial stack: " + stackMy);
 
 
+        QueueMy<String> queueMy = new QueueMy<>();
+
+
+        queueMy.add("A");
+        queueMy.add("Б");
+        queueMy.add("В");
+        queueMy.add("Г");
+        queueMy.add("Д");
+
+        System.out.println("Initial queueMy: " + queueMy);
+        System.out.println("View My fill: " + queueMy.isEmpty());
+        System.out.println("Removing the last element " + queueMy.removeLast());
+        System.out.println("Removing the first element " + queueMy.removeFirst());
+        System.out.println("Initial queue: " + queueMy);
+
+        while (!queueMy.isEmpty()) {
+            System.out.println(queueMy.removeFirst());
+        }
+
+        System.out.println("Initial queue: " + queueMy);
+        System.out.println("View queue fill: " + queueMy.isEmpty());
+
+        long endFive = System.nanoTime();
+        long elapsedTimeFive = endFive - startFive;
+        System.out.println("Time spent on surgery: " + elapsedTimeFive + " nanoseconds");
     }
 
     public static class LinkedListStack<T> {
 
-        private final LinkedList<T> linkedList = new LinkedList<>();
+        private final LinkedListMy<T> linkedList = new LinkedListMy<>();
 
         public void push(T data) {
             linkedList.addFirst(data);
@@ -175,9 +202,46 @@ public class HomeWork {
         public String toString() {
             return linkedList.toString();
         }
+
     }
 
-    static class LinkedList<T> {
+    public static class QueueMy<T>
+    {
+        protected LinkedList<T> list;
+
+        public QueueMy() {
+            list = new LinkedList<T>();
+        }
+
+        public void add(T element) {
+            list.add( element);
+        }
+
+        public boolean isEmpty() {
+            return list.isEmpty();
+        }
+
+        public T removeLast() {
+            return list.removeLast();
+
+        }
+
+        public T removeFirst() {
+            return list.removeFirst();
+        }
+
+
+        public String toString() {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(list);
+
+            return String.valueOf(list);
+        }
+
+
+    }
+
+    static class LinkedListMy<T> {
 
         // внутренний класс, который представляет элемент списка
         private class Node<T> {
